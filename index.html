@@ -131,6 +131,7 @@
       display: flex;
       padding: 8px 16px;
       gap: 2px;
+      /* On desktop only — hidden on mobile via media query below */
     }
 
     .lang-btn {
@@ -351,7 +352,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 120px var(--px) 80px;
+      padding: 120px var(--px) 60px;
       position: relative;
       z-index: 2;
     }
@@ -468,11 +469,12 @@
     }
 
     .hero-stats {
-      position: absolute;
-      bottom: 48px;
-      left: var(--px);
+      position: static;
       display: flex;
       gap: 40px;
+      flex-wrap: wrap;
+      margin-top: auto;
+      padding-top: 40px;
       opacity: 0;
       animation: fadeUp .9s 1.1s ease forwards;
     }
@@ -858,6 +860,50 @@
       font-size: 12px;
       color: var(--muted);
       line-height: 1.5;
+    }
+
+    /* Race label under the name */
+    .breed-race {
+      font-size: 11px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+
+    /* Sex / Age pills */
+    .breed-details {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 2px;
+    }
+
+    .detail-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      padding: 3px 9px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+
+    .detail-pill.male {
+      background: #e8f0fc;
+      color: #3b6bc7;
+    }
+
+    .detail-pill.female {
+      background: #fce8f3;
+      color: #c73b8a;
+    }
+
+    .detail-pill.age {
+      background: var(--sand);
+      color: var(--muted);
     }
 
     .breed-meta {
@@ -1325,6 +1371,7 @@
     .loader.hidden {
       opacity: 0;
       visibility: hidden;
+      pointer-events: none;
     }
 
     .loader-logo {
@@ -1529,8 +1576,9 @@
         display: flex;
       }
 
+      /* Hide desktop lang switcher on mobile — it's inside the mobile menu */
       .lang-bar {
-        padding: 8px 12px;
+        display: none;
       }
 
       /* Hero → stack verticalement */
@@ -1557,13 +1605,6 @@
 
       .hero-badge {
         display: none;
-      }
-
-      .hero-stats {
-        position: static;
-        margin-top: 36px;
-        gap: 28px;
-        flex-wrap: wrap;
       }
 
       .hero-title {
@@ -1690,6 +1731,7 @@
 
       .hero-stats {
         gap: 20px;
+        padding-top: 28px;
       }
 
       .stat-num {
@@ -1841,7 +1883,7 @@
   </div>
 
   <!-- WHATSAPP -->
-  <a href="https://wa.me/TU_NUMERO_WHATSAPP?text=Hola%2C%20me%20interesa%20adoptar%20un%20gatito.%20%C2%BFPodr%C3%ADa%20darme%20m%C3%A1s%20informaci%C3%B3n%3F"
+  <a href="https://wa.me/34631739212?text=Hola%2C%20me%20interesa%20adoptar%20un%20gatito.%20%C2%BFPodr%C3%ADa%20darme%20m%C3%A1s%20informaci%C3%B3n%3F"
     target="_blank" rel="noopener" class="wa-btn" id="waBtn">
     <svg viewBox="0 0 24 24" fill="currentColor">
       <path
@@ -1870,7 +1912,6 @@
     </button>
   </nav>
 
-  <!-- HERO -->
   <section class="hero" id="home">
     <div class="hero-left">
       <div class="hero-tag" data-i18n="hero_tag">Criadero Premium — Desde 2003</div>
@@ -1945,9 +1986,8 @@
   <section class="about" id="nosotros">
     <div class="about-images reveal">
       <div class="about-accent-line"></div>
-      <img class="about-img-1" src="https://images.unsplash.com/photo-1561948955-570b270e7c36?w=600&q=80" alt="Crianza">
-      <img class="about-img-2" src="https://images.unsplash.com/photo-1518791841217-8f162f1912da?w=400&q=80"
-        alt="Gatito">
+      <img class="about-img-1" src="images/font1.jpeg" alt="Crianza">
+      <img class="about-img-2" src="images/FONT2.jpeg" alt="Gatito">
     </div>
     <div class="about-content">
       <div class="section-tag reveal" data-i18n="about_tag">Sobre nosotros</div>
@@ -1976,16 +2016,7 @@
               con documentación oficial incluida.</div>
           </div>
         </div>
-        <div class="feature-item">
-          <div class="feature-icon">❤️</div>
-          <div>
-            <div class="feature-title" data-i18n="feat3_title">Seguimiento post-adopción</div>
-            <div class="feature-desc" data-i18n="feat3_desc">Permanecemos disponibles para acompañarle después de la
-              adopción de su gatito.</div>
-          </div>
-        </div>
       </div>
-    </div>
   </section>
 
   <!-- BREEDS -->
@@ -1993,188 +2024,411 @@
     <div class="breeds-header">
       <div>
         <div class="section-tag reveal" data-i18n="breeds_tag">Nuestros gatitos</div>
-        <h2 class="section-title reveal reveal-delay-1"><span data-i18n="breeds_title">Razas</span> <em
+        <h2 class="section-title reveal reveal-delay-1"><span data-i18n="breeds_title">Gatitos</span> <em
             data-i18n="breeds_title_em">Disponibles</em></h2>
       </div>
       <div class="breeds-filter reveal">
         <button class="filter-btn active" data-filter="all" data-i18n="filter_all">Todos</button>
-        <button class="filter-btn" data-filter="short" data-i18n="filter_short">Pelo Corto</button>
-        <button class="filter-btn" data-filter="long" data-i18n="filter_long">Pelo Largo</button>
+        <button class="filter-btn" data-filter="short" data-i18n="filter_short">Maine Coon</button>
+        <button class="filter-btn" data-filter="long" data-i18n="filter_long">Británico pelo corto</button>
+        <button class="filter-btn" data-filter="longer" data-i18n="filter_longer">Bengalí</button>
+        <button class="filter-btn" data-filter="gris" data-i18n="filter_gris">Azul Ruso</button>
       </div>
     </div>
+
     <div class="breeds-grid" id="breedsGrid">
 
-      <div class="breed-card" data-coat="long">
+      <!-- ── Maine Coon ── -->
+      <div class="breed-card" data-coat="short">
         <div class="breed-img-wrap">
-          <!-- 👉 Remplace cette URL par ta propre photo Maine Coon -->
-          <img src="images/maincoon.jpeg" alt="Maine Coon" loading="lazy">
+          <img src="images/ZINO.jpeg" alt="Zino" loading="lazy">
           <div class="breed-overlay"></div>
           <div class="breed-tag" data-i18n="tag_popular">Popular</div>
           <div class="breed-cta-overlay" data-i18n="card_cta">Ver disponibles</div>
         </div>
         <div class="breed-info">
-          <div class="breed-name">Maine Coon</div>
-          <div class="breed-desc-short" data-i18n="mc_desc">Sexo: Macho
-            Edad: 10 semanas</div>
+          <div class="breed-name">Zino</div>
+          <div class="breed-race">Maine Coon</div>
+          <div class="breed-details">
+            <span class="detail-pill male" data-i18n-sex="male">♂ Macho</span>
+            <span class="detail-pill age" data-i18n-age="10">🕐 10 <span data-i18n="weeks">sem.</span></span>
+          </div>
           <div class="breed-meta">
             <div class="breed-avail">
               <div class="avail-dot"></div><span data-i18n="available">Disponible</span>
             </div>
           </div>
-          <a href="#contacto" class="btn-order-card" onclick="selectBreed('Maine Coon')" data-i18n="btn_order">Hacer
-            pedido</a>
+          <a href="#contacto" class="btn-order-card" onclick="selectBreed('Maine Coon')"
+            data-i18n="btn_order">Adoptar</a>
         </div>
       </div>
 
-      <div class="breed-card" data-coat="long">
+      <div class="breed-card" data-coat="short">
         <div class="breed-img-wrap">
-          <!-- 👉 Remplace par ta photo Ragdoll -->
-          <img src="images/gato Maine Coon.jpeg" alt="Ragdoll" loading="lazy">
-          <div class="breed-overlay">Sexo: Macho Edad: 11 semanas Macho means Male</div>
+          <img src="images/Dani.jpeg" alt="Dani" loading="lazy">
+          <div class="breed-overlay"></div>
           <div class="breed-tag" data-i18n="tag_fav">Favorito</div>
           <div class="breed-cta-overlay" data-i18n="card_cta">Ver disponibles</div>
         </div>
         <div class="breed-info">
-          <div class="breed-name">gato Maine Coon</div>
-          <div class="breed-desc-short" data-i18n="rd_desc">Suave y dócil, ideal para familias</div>
+          <div class="breed-name">Dani</div>
+          <div class="breed-race">Maine Coon</div>
+          <div class="breed-details">
+            <span class="detail-pill male" data-i18n-sex="male">♂ Macho</span>
+            <span class="detail-pill age">🕐 10 <span data-i18n="weeks">sem.</span></span>
+          </div>
           <div class="breed-meta">
             <div class="breed-avail">
               <div class="avail-dot"></div><span data-i18n="available">Disponible</span>
             </div>
           </div>
-          <a href="#contacto" class="btn-order-card" onclick="selectBreed('Ragdoll')" data-i18n="btn_order">Hacer
-            pedido</a>
+          <a href="#contacto" class="btn-order-card" onclick="selectBreed('Maine Coon')"
+            data-i18n="btn_order">Adoptar</a>
         </div>
       </div>
 
       <div class="breed-card" data-coat="short">
         <div class="breed-img-wrap">
-          <!-- 👉 Remplace par ta photo British Shorthair -->
-          <img src="images/Razagato Maine Coon.jpeg" alt="British Shorthair" loading="lazy">
-          <div class="breed-overlay">gato Maine Coon</div>
+          <img src="images/nesto.jpeg" alt="Nesto" loading="lazy">
+          <div class="breed-overlay"></div>
           <div class="breed-cta-overlay" data-i18n="card_cta">Ver disponibles</div>
         </div>
         <div class="breed-info">
-          <div class="breed-name">gato Maine Coon macho</div>
-          <div class="breed-desc-short" data-i18n="bri_desc">Edad: 10 semanas</div>
+          <div class="breed-name">Nesto</div>
+          <div class="breed-race">Maine Coon</div>
+          <div class="breed-details">
+            <span class="detail-pill male" data-i18n-sex="male">♂ Macho</span>
+            <span class="detail-pill age">🕐 10 <span data-i18n="weeks">sem.</span></span>
+          </div>
           <div class="breed-meta">
             <div class="breed-avail">
               <div class="avail-dot"></div><span data-i18n="available">Disponible</span>
             </div>
           </div>
-          <a href="#contacto" class="btn-order-card" onclick="selectBreed('British Shorthair')"
-            data-i18n="btn_order">Hacer pedido</a>
+          <a href="#contacto" class="btn-order-card" onclick="selectBreed('Maine Coon')"
+            data-i18n="btn_order">Adoptar</a>
+        </div>
+      </div>
+
+      <div class="breed-card" data-coat="short">
+        <div class="breed-img-wrap">
+          <img src="images/xena.jpeg" alt="Xena" loading="lazy">
+          <div class="breed-overlay"></div>
+          <div class="breed-cta-overlay" data-i18n="card_cta">Ver disponibles</div>
+        </div>
+        <div class="breed-info">
+          <div class="breed-name">Xena</div>
+          <div class="breed-race">Maine Coon</div>
+          <div class="breed-details">
+            <span class="detail-pill female" data-i18n-sex="female">♀ Hembra</span>
+            <span class="detail-pill age">🕐 10 <span data-i18n="weeks">sem.</span></span>
+          </div>
+          <div class="breed-meta">
+            <div class="breed-avail">
+              <div class="avail-dot"></div><span data-i18n="available">Disponible</span>
+            </div>
+          </div>
+          <a href="#contacto" class="btn-order-card" onclick="selectBreed('Maine Coon')"
+            data-i18n="btn_order">Adoptar</a>
+        </div>
+      </div>
+
+      <!-- ── Británico pelo corto ── -->
+      <div class="breed-card" data-coat="long">
+        <div class="breed-img-wrap">
+          <img src="images/taco.jpeg" alt="Taco" loading="lazy">
+          <div class="breed-overlay"></div>
+          <div class="breed-cta-overlay" data-i18n="card_cta">Ver disponibles</div>
+        </div>
+        <div class="breed-info">
+          <div class="breed-name">Taco</div>
+          <div class="breed-race">Británico pelo corto</div>
+          <div class="breed-details">
+            <span class="detail-pill male" data-i18n-sex="male">♂ Macho</span>
+            <span class="detail-pill age">🕐 10 <span data-i18n="weeks">sem.</span></span>
+          </div>
+          <div class="breed-meta">
+            <div class="breed-avail">
+              <div class="avail-dot"></div><span data-i18n="available">Disponible</span>
+            </div>
+          </div>
+          <a href="#contacto" class="btn-order-card" onclick="selectBreed('Británico pelo corto')"
+            data-i18n="btn_order">Adoptar</a>
         </div>
       </div>
 
       <div class="breed-card" data-coat="long">
         <div class="breed-img-wrap">
-          <!-- 👉 Remplace par ta photo Persa -->
-          <img src="images/gato Maine Coon hermano.jpeg" alt="Persa" loading="lazy">
-          <div class="breed-overlay">gato Maine Coon</div>
-          <div class="breed-tag" data-i18n="tag_prestige">Prestigio</div>
-          <div class="breed-cta-overlay" data-i18n="card_cta">Ver disponibles</div>
-        </div>
-        <div class="breed-info">
-          <div class="breed-name">Hembra means Female</div>
-          <div class="breed-desc-short" data-i18n="per_desc">Sexo: Hembra
-            Edad: 10 semanas</div>
-          <div class="breed-meta">
-            <div class="breed-avail">
-              <div class="avail-dot"></div><span data-i18n="available">Disponible</span>
-            </div>
-          </div>
-          <a href="#contacto" class="btn-order-card" onclick="selectBreed('Persa')" data-i18n="btn_order">Hacer
-            pedido</a>
-        </div>
-      </div>
-
-      <div class="breed-card" data-coat="short">
-        <div class="breed-img-wrap">
-          <!-- 👉 Remplace par ta photo Bengalí -->
-          <img src="images/gato Maine Coon Sexo Hembra.jpeg" alt="Bengalí" loading="lazy">
-          <div class="breed-overlay">gato Maine Coon</div>
-          <div class="breed-tag" data-i18n="tag_exotic">Hembra means Female</div>
-          <div class="breed-cta-overlay" data-i18n="card_cta">Ver disponibles</div>
-        </div>
-        <div class="breed-info">
-          <div class="breed-name">maine coon</div>
-          <div class="breed-desc-short" data-i18n="ben_desc">Pelaje leopardo, energía desbordante</div>
-          <div class="breed-meta">
-            <div class="breed-avail">
-              <div class="avail-dot"></div><span data-i18n="available">Disponible</span>
-            </div>
-          </div>
-          <a href="#contacto" class="btn-order-card" onclick="selectBreed('Bengalí')" data-i18n="btn_order">Hacer
-            pedido</a>
-        </div>
-      </div>
-
-      <div class="breed-card" data-coat="short">
-        <div class="breed-img-wrap">
-          <!-- 👉 Remplace par ta photo Siamés -->
-          <img src="https://images.unsplash.com/photo-1615789591457-74a63395c990?w=400&q=80" alt="Siamés"
-            loading="lazy">
+          <img src="images/Mateo.jpeg" alt="Mateo" loading="lazy">
           <div class="breed-overlay"></div>
           <div class="breed-cta-overlay" data-i18n="card_cta">Ver disponibles</div>
         </div>
         <div class="breed-info">
-          <div class="breed-name">Siamés</div>
-          <div class="breed-desc-short" data-i18n="sia_desc">Comunicativo, inteligente y fiel</div>
+          <div class="breed-name">Mateo</div>
+          <div class="breed-race">Británico pelo corto</div>
+          <div class="breed-details">
+            <span class="detail-pill male" data-i18n-sex="male">♂ Macho</span>
+            <span class="detail-pill age">🕐 10 <span data-i18n="weeks">sem.</span></span>
+          </div>
           <div class="breed-meta">
             <div class="breed-avail">
               <div class="avail-dot"></div><span data-i18n="available">Disponible</span>
             </div>
           </div>
-          <a href="#contacto" class="btn-order-card" onclick="selectBreed('Siamés')" data-i18n="btn_order">Hacer
-            pedido</a>
+          <a href="#contacto" class="btn-order-card" onclick="selectBreed('Británico pelo corto')"
+            data-i18n="btn_order">Adoptar</a>
         </div>
       </div>
 
-      <div class="breed-card" data-coat="short">
+      <!-- ── Bengalí ── -->
+      <div class="breed-card" data-coat="longer">
         <div class="breed-img-wrap">
-          <!-- 👉 Remplace par ta photo Scottish Fold -->
-          <img src="https://images.unsplash.com/photo-1571566882372-1598d88abd90?w=400&q=80" alt="Scottish Fold"
-            loading="lazy">
-          <div class="breed-overlay"></div>
-          <div class="breed-tag" data-i18n="tag_rare">Raro</div>
-          <div class="breed-cta-overlay" data-i18n="card_cta">Ver disponibles</div>
-        </div>
-        <div class="breed-info">
-          <div class="breed-name">Scottish Fold</div>
-          <div class="breed-desc-short" data-i18n="sco_desc">Orejas plegadas, mirada expresiva</div>
-          <div class="breed-meta">
-            <div class="breed-avail">
-              <div class="avail-dot"></div><span data-i18n="available">Disponible</span>
-            </div>
-          </div>
-          <a href="#contacto" class="btn-order-card" onclick="selectBreed('Scottish Fold')" data-i18n="btn_order">Hacer
-            pedido</a>
-        </div>
-      </div>
-
-      <div class="breed-card" data-coat="short">
-        <div class="breed-img-wrap">
-          <!-- 👉 Remplace par ta photo Azul Ruso -->
-          <img src="https://images.unsplash.com/photo-1583795128727-6ec3642408f8?w=400&q=80" alt="Azul Ruso"
-            loading="lazy">
+          <img src="images/Kloe.jpeg" alt="Kloe" loading="lazy">
           <div class="breed-overlay"></div>
           <div class="breed-cta-overlay" data-i18n="card_cta">Ver disponibles</div>
         </div>
         <div class="breed-info">
-          <div class="breed-name">Azul Ruso</div>
-          <div class="breed-desc-short" data-i18n="azu_desc">Pelaje plateado, discreto y leal</div>
+          <div class="breed-name">Kloe</div>
+          <div class="breed-race">Bengalí</div>
+          <div class="breed-details">
+            <span class="detail-pill female" data-i18n-sex="female">♀ Hembra</span>
+            <span class="detail-pill age">🕐 10 <span data-i18n="weeks">sem.</span></span>
+          </div>
           <div class="breed-meta">
             <div class="breed-avail">
               <div class="avail-dot"></div><span data-i18n="available">Disponible</span>
             </div>
           </div>
-          <a href="#contacto" class="btn-order-card" onclick="selectBreed('Azul Ruso')" data-i18n="btn_order">Hacer
-            pedido</a>
+          <a href="#contacto" class="btn-order-card" onclick="selectBreed('Bengalí')" data-i18n="btn_order">Adoptar</a>
         </div>
       </div>
 
-    </div>
+      <div class="breed-card" data-coat="longer">
+        <div class="breed-img-wrap">
+          <img src="images/Nacho.jpeg" alt="Nacho" loading="lazy">
+          <div class="breed-overlay"></div>
+          <div class="breed-cta-overlay" data-i18n="card_cta">Ver disponibles</div>
+        </div>
+        <div class="breed-info">
+          <div class="breed-name">Nacho</div>
+          <div class="breed-race">Bengalí</div>
+          <div class="breed-details">
+            <span class="detail-pill male" data-i18n-sex="male">♂ Macho</span>
+            <span class="detail-pill age">🕐 12 <span data-i18n="weeks">sem.</span></span>
+          </div>
+          <div class="breed-meta">
+            <div class="breed-avail">
+              <div class="avail-dot"></div><span data-i18n="available">Disponible</span>
+            </div>
+          </div>
+          <a href="#contacto" class="btn-order-card" onclick="selectBreed('Bengalí')" data-i18n="btn_order">Adoptar</a>
+        </div>
+      </div>
+
+      <div class="breed-card" data-coat="longer">
+        <div class="breed-img-wrap">
+          <img src="images/shila.jpeg" alt="Shila" loading="lazy">
+          <div class="breed-overlay"></div>
+          <div class="breed-cta-overlay" data-i18n="card_cta">Ver disponibles</div>
+        </div>
+        <div class="breed-info">
+          <div class="breed-name">Shila</div>
+          <div class="breed-race">Bengalí</div>
+          <div class="breed-details">
+            <span class="detail-pill female" data-i18n-sex="female">♀ Hembra</span>
+            <span class="detail-pill age">🕐 10 <span data-i18n="weeks">sem.</span></span>
+          </div>
+          <div class="breed-meta">
+            <div class="breed-avail">
+              <div class="avail-dot"></div><span data-i18n="available">Disponible</span>
+            </div>
+          </div>
+          <a href="#contacto" class="btn-order-card" onclick="selectBreed('Bengalí')" data-i18n="btn_order">Adoptar</a>
+        </div>
+      </div>
+
+      <div class="breed-card" data-coat="longer">
+        <div class="breed-img-wrap">
+          <img src="images/queso.jpeg" alt="Queso" loading="lazy">
+          <div class="breed-overlay"></div>
+          <div class="breed-cta-overlay" data-i18n="card_cta">Ver disponibles</div>
+        </div>
+        <div class="breed-info">
+          <div class="breed-name">Queso</div>
+          <div class="breed-race">Bengalí</div>
+          <div class="breed-details">
+            <span class="detail-pill male" data-i18n-sex="male">♂ Macho</span>
+            <span class="detail-pill age">🕐 10 <span data-i18n="weeks">sem.</span></span>
+          </div>
+          <div class="breed-meta">
+            <div class="breed-avail">
+              <div class="avail-dot"></div><span data-i18n="available">Disponible</span>
+            </div>
+          </div>
+          <a href="#contacto" class="btn-order-card" onclick="selectBreed('Bengalí')" data-i18n="btn_order">Adoptar</a>
+        </div>
+      </div>
+
+      <div class="breed-card" data-coat="longer">
+        <div class="breed-img-wrap">
+          <img src="images/Linda.jpeg" alt="Linda" loading="lazy">
+          <div class="breed-overlay"></div>
+          <div class="breed-cta-overlay" data-i18n="card_cta">Ver disponibles</div>
+        </div>
+        <div class="breed-info">
+          <div class="breed-name">Linda</div>
+          <div class="breed-race">Bengalí</div>
+          <div class="breed-details">
+            <span class="detail-pill female" data-i18n-sex="female">♀ Hembra</span>
+            <span class="detail-pill age">🕐 10 <span data-i18n="weeks">sem.</span></span>
+          </div>
+          <div class="breed-meta">
+            <div class="breed-avail">
+              <div class="avail-dot"></div><span data-i18n="available">Disponible</span>
+            </div>
+          </div>
+          <a href="#contacto" class="btn-order-card" onclick="selectBreed('Bengalí')" data-i18n="btn_order">Adoptar</a>
+        </div>
+      </div>
+
+      <div class="breed-card" data-coat="longer">
+        <div class="breed-img-wrap">
+          <img src="images/jefe.jpeg" alt="Jefe" loading="lazy">
+          <div class="breed-overlay"></div>
+          <div class="breed-cta-overlay" data-i18n="card_cta">Ver disponibles</div>
+        </div>
+        <div class="breed-info">
+          <div class="breed-name">Jefe</div>
+          <div class="breed-race">Bengalí</div>
+          <div class="breed-details">
+            <span class="detail-pill male" data-i18n-sex="male">♂ Macho</span>
+            <span class="detail-pill age">🕐 10 <span data-i18n="weeks">sem.</span></span>
+          </div>
+          <div class="breed-meta">
+            <div class="breed-avail">
+              <div class="avail-dot"></div><span data-i18n="available">Disponible</span>
+            </div>
+          </div>
+          <a href="#contacto" class="btn-order-card" onclick="selectBreed('Bengalí')" data-i18n="btn_order">Adoptar</a>
+        </div>
+      </div>
+
+      <div class="breed-card" data-coat="longer">
+        <div class="breed-img-wrap">
+          <img src="images/tacco.jpeg" alt="Tacco" loading="lazy">
+          <div class="breed-overlay"></div>
+          <div class="breed-cta-overlay" data-i18n="card_cta">Ver disponibles</div>
+        </div>
+        <div class="breed-info">
+          <div class="breed-name">Tacco</div>
+          <div class="breed-race">Bengalí</div>
+          <div class="breed-details">
+            <span class="detail-pill male" data-i18n-sex="male">♂ Macho</span>
+            <span class="detail-pill age">🕐 10 <span data-i18n="weeks">sem.</span></span>
+          </div>
+          <div class="breed-meta">
+            <div class="breed-avail">
+              <div class="avail-dot"></div><span data-i18n="available">Disponible</span>
+            </div>
+          </div>
+          <a href="#contacto" class="btn-order-card" onclick="selectBreed('Bengalí')" data-i18n="btn_order">Adoptar</a>
+        </div>
+      </div>
+
+      <!-- ── Azul Ruso ── -->
+      <div class="breed-card" data-coat="gris">
+        <div class="breed-img-wrap">
+          <img src="images/keva.jpeg" alt="Keva" loading="lazy">
+          <div class="breed-overlay"></div>
+          <div class="breed-cta-overlay" data-i18n="card_cta">Ver disponibles</div>
+        </div>
+        <div class="breed-info">
+          <div class="breed-name">Keva</div>
+          <div class="breed-race">Azul Ruso</div>
+          <div class="breed-details">
+            <span class="detail-pill female" data-i18n-sex="female">♀ Hembra</span>
+            <span class="detail-pill age">🕐 10 <span data-i18n="weeks">sem.</span></span>
+          </div>
+          <div class="breed-meta">
+            <div class="breed-avail">
+              <div class="avail-dot"></div><span data-i18n="available">Disponible</span>
+            </div>
+          </div>
+          <a href="#contacto" class="btn-order-card" onclick="selectBreed('Azul Ruso')"
+            data-i18n="btn_order">Adoptar</a>
+        </div>
+      </div>
+
+      <div class="breed-card" data-coat="gris">
+        <div class="breed-img-wrap">
+          <img src="images/kilo.jpeg" alt="Kilo" loading="lazy">
+          <div class="breed-overlay"></div>
+          <div class="breed-cta-overlay" data-i18n="card_cta">Ver disponibles</div>
+        </div>
+        <div class="breed-info">
+          <div class="breed-name">Kilo</div>
+          <div class="breed-race">Azul Ruso</div>
+          <div class="breed-details">
+            <span class="detail-pill male" data-i18n-sex="male">♂ Macho</span>
+            <span class="detail-pill age">🕐 10 <span data-i18n="weeks">sem.</span></span>
+          </div>
+          <div class="breed-meta">
+            <div class="breed-avail">
+              <div class="avail-dot"></div><span data-i18n="available">Disponible</span>
+            </div>
+          </div>
+          <a href="#contacto" class="btn-order-card" onclick="selectBreed('Azul Ruso')"
+            data-i18n="btn_order">Adoptar</a>
+        </div>
+      </div>
+
+      <div class="breed-card" data-coat="gris">
+        <div class="breed-img-wrap">
+          <img src="images/anna.jpeg" alt="Anna" loading="lazy">
+          <div class="breed-overlay"></div>
+          <div class="breed-cta-overlay" data-i18n="card_cta">Ver disponibles</div>
+        </div>
+        <div class="breed-info">
+          <div class="breed-name">Anna</div>
+          <div class="breed-race">Azul Ruso</div>
+          <div class="breed-details">
+            <span class="detail-pill female" data-i18n-sex="female">♀ Hembra</span>
+            <span class="detail-pill age">🕐 10 <span data-i18n="weeks">sem.</span></span>
+          </div>
+          <div class="breed-meta">
+            <div class="breed-avail">
+              <div class="avail-dot"></div><span data-i18n="available">Disponible</span>
+            </div>
+          </div>
+          <a href="#contacto" class="btn-order-card" onclick="selectBreed('Azul Ruso')"
+            data-i18n="btn_order">Adoptar</a>
+        </div>
+      </div>
+
+      <div class="breed-card" data-coat="gris">
+        <div class="breed-img-wrap">
+          <img src="images/luna y mino.jpeg" alt="Luna y Mino" loading="lazy">
+          <div class="breed-overlay"></div>
+          <div class="breed-cta-overlay" data-i18n="card_cta">Ver disponibles</div>
+        </div>
+        <div class="breed-info">
+          <div class="breed-name">Luna y Mino</div>
+          <div class="breed-race">Azul Ruso</div>
+          <div class="breed-details">
+            <span class="detail-pill female" data-i18n-sex="female">♀ Hembra</span>
+            <span class="detail-pill age">🕐 10 <span data-i18n="weeks">sem.</span></span>
+          </div>
+          <div class="breed-meta">
+            <div class="breed-avail">
+              <div class="avail-dot"></div><span data-i18n="available">Disponible</span>
+            </div>
+          </div>
+          <a href="#contacto" class="btn-order-card" onclick="selectBreed('Azul Ruso')"
+            data-i18n="btn_order">Adoptar</a>
+        </div>
+      </div>
+
+    </div><!-- end #breedsGrid -->
   </section>
 
   <!-- TESTIMONIALS -->
@@ -2235,7 +2489,7 @@
           <div class="contact-icon">📞</div>
           <div>
             <div class="contact-detail-label" data-i18n="phone_label">Teléfono / WhatsApp</div>
-            <div class="contact-detail-val">+34 607 36 05 29</div>
+            <div class="contact-detail-val">+34 631 73 92 12</div>
           </div>
         </div>
         <div class="contact-detail">
@@ -2243,14 +2497,15 @@
           <div>
             <div class="contact-detail-label">Email</div>
             <!-- 👉 Remplace par ton vrai email -->
-            <div class="contact-detail-val">TU_EMAIL@dominio.com</div>
+            <div class="contact-detail-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__"
+                data-cfemail="98cccdc7ddd5d9d1d4d8fcf7f5f1f6f1f7b6fbf7f5">[email&#160;protected]</a></div>
           </div>
         </div>
         <div class="contact-detail">
           <div class="contact-icon">🕐</div>
           <div>
             <div class="contact-detail-label" data-i18n="hours_label">Horario</div>
-            <div class="contact-detail-val" data-i18n="hours_val">Lun – Sáb, 9h a 19h</div>
+            <div class="contact-detail-val" data-i18n="hours_val">Lun – Dom, 24h/24h</div>
           </div>
         </div>
       </div>
@@ -2260,9 +2515,10 @@
       <form id="contactForm" novalidate>
         <div class="form-row">
           <div class="form-group"><label data-i18n="form_fname">Nombre</label><input type="text" id="fname"
-              placeholder="Carlos" required></div>
+              placeholder="Carlos" required>
+          </div>
           <div class="form-group"><label data-i18n="form_lname">Apellido</label><input type="text" id="lname"
-              placeholder="García" required></div>
+              placeholder="Pérez"></div>
         </div>
         <div class="form-group"><label>Email</label><input type="email" id="email" placeholder="carlos@ejemplo.com"
             required></div>
@@ -2302,7 +2558,7 @@
     <div class="footer-links">
       <a href="#" data-i18n="footer_legal">Aviso legal</a>
       <a href="#" data-i18n="footer_privacy">Privacidad</a>
-      <a href="#" target="_blank">Instagram</a>
+
     </div>
   </footer>
 
@@ -2310,9 +2566,9 @@
     /* ══════════════════════════════════════
        EMAILJS CONFIG — remplace ces valeurs
     ══════════════════════════════════════ */
-    const EMAILJS_SERVICE_ID = 'TU_SERVICE_ID';
-    const EMAILJS_TEMPLATE_ID = 'TU_TEMPLATE_ID';
-    const EMAILJS_PUBLIC_KEY = 'TU_PUBLIC_KEY';
+    const EMAILJS_SERVICE_ID = 'service_a3zlhdp';
+    const EMAILJS_TEMPLATE_ID = 'template_anzxx28';
+    const EMAILJS_PUBLIC_KEY = 'sKU_NF29CFni-nS0Q';
     emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 
     /* ══════════════════════════════════════
@@ -2344,8 +2600,8 @@
         feat2_title: 'Pedigrí certificado', feat2_desc: 'Líneas de sangre mundiales cuidadosamente seleccionadas, con documentación oficial incluida.',
         feat3_title: 'Seguimiento post-adopción', feat3_desc: 'Permanecemos disponibles para acompañarle después de la adopción de su gatito.',
         breeds_tag: 'Nuestros gatitos', breeds_title: 'Razas', breeds_title_em: 'Disponibles',
-        filter_all: 'Todos', filter_short: 'Pelo Corto', filter_long: 'Pelo Largo',
-        card_cta: 'Ver disponibles', available: 'Disponible',
+        filter_all: 'Todos', filter_short: 'Maine Coon', filter_long: 'Británico pelo corto', filter_longer: 'Bengalí', filter_gris: 'Azul Ruso',
+        card_cta: 'Ver disponibles', available: 'Disponible', weeks: 'sem.',
         tag_popular: 'Popular', tag_fav: 'Favorito', tag_prestige: 'Prestigio', tag_exotic: 'Exótico', tag_rare: 'Raro',
         mc_desc: 'Grande y majestuoso, cariñoso y juguetón', rd_desc: 'Suave y dócil, ideal para familias',
         bri_desc: 'Tranquilo, robusto e independiente', per_desc: 'Elegancia real y carácter plácido',
@@ -2382,8 +2638,8 @@
         feat2_title: 'Pedigree certifié', feat2_desc: 'Lignées mondiales soigneusement sélectionnées, avec documents officiels fournis.',
         feat3_title: 'Suivi post-adoption', feat3_desc: 'Nous restons disponibles pour vous accompagner après l\'adoption.',
         breeds_tag: 'Nos chatons', breeds_title: 'Races', breeds_title_em: 'Disponibles',
-        filter_all: 'Tous', filter_short: 'Poil Court', filter_long: 'Poil Long',
-        card_cta: 'Voir les disponibles', available: 'Disponible',
+        filter_all: 'Tous', filter_short: 'Maine Coon', filter_long: 'Britannique poil court', filter_longer: 'Bengale', filter_gris: 'Bleu Russe',
+        card_cta: 'Voir les disponibles', available: 'Disponible', weeks: 'sem.',
         tag_popular: 'Populaire', tag_fav: 'Coup de cœur', tag_prestige: 'Prestige', tag_exotic: 'Exotique', tag_rare: 'Rare',
         mc_desc: 'Grand et majestueux, affectueux et joueur', rd_desc: 'Doux comme un agneau, idéal en famille',
         bri_desc: 'Calme, robuste et indépendant', per_desc: 'Élégance royale et caractère placide',
@@ -2420,8 +2676,8 @@
         feat2_title: 'Certified pedigree', feat2_desc: 'Carefully selected world bloodlines, with official documentation included.',
         feat3_title: 'Post-adoption follow-up', feat3_desc: 'We remain available to support you after adopting your kitten.',
         breeds_tag: 'Our kittens', breeds_title: 'Available', breeds_title_em: 'Breeds',
-        filter_all: 'All', filter_short: 'Short Hair', filter_long: 'Long Hair',
-        card_cta: 'See available', available: 'Available',
+        filter_all: 'All', filter_short: 'Maine Coon', filter_long: 'British Shorthair', filter_longer: 'Bengali', filter_gris: 'Russian Blue',
+        card_cta: 'See available', available: 'Available', weeks: 'wks.',
         tag_popular: 'Popular', tag_fav: 'Top Pick', tag_prestige: 'Prestige', tag_exotic: 'Exotic', tag_rare: 'Rare',
         mc_desc: 'Large and majestic, loving and playful', rd_desc: 'Gentle as a lamb, perfect for families',
         bri_desc: 'Calm, sturdy and independent', per_desc: 'Royal elegance and placid character',
@@ -2446,10 +2702,16 @@
     };
 
     let currentLang = 'es';
+
+    const sexLabels = {
+      es: { male: '♂ Macho', female: '♀ Hembra', weeks: 'sem.' },
+      fr: { male: '♂ Mâle', female: '♀ Femelle', weeks: 'sem.' },
+      en: { male: '♂ Male', female: '♀ Female', weeks: 'wks.' },
+    };
+
     function setLang(lang) {
       currentLang = lang;
       document.documentElement.lang = lang;
-      // Update all lang buttons (desktop + mobile)
       document.querySelectorAll('.lang-btn,.ml-btn').forEach(b => {
         b.classList.toggle('active', b.textContent.trim() === lang.toUpperCase());
       });
@@ -2458,7 +2720,10 @@
         const k = el.getAttribute('data-i18n');
         if (t[k] !== undefined) el.textContent = t[k];
       });
-      // Close mobile nav after lang change
+      // Translate sex pills
+      const sx = sexLabels[lang];
+      document.querySelectorAll('[data-i18n-sex="male"]').forEach(el => el.textContent = sx.male);
+      document.querySelectorAll('[data-i18n-sex="female"]').forEach(el => el.textContent = sx.female);
       closeMobileNav();
     }
 
@@ -2498,7 +2763,7 @@
       document.getElementById('submitText').textContent = '⏳ Enviando…';
 
       emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-        from_name: document.getElementById('fname').value + ' ' + document.getElementById('lname').value,
+        from_name: (document.getElementById('fname') ? document.getElementById('fname').value : '') + ' ' + (document.getElementById('lname') ? document.getElementById('lname').value : ''),
         from_email: document.getElementById('email').value,
         phone: document.getElementById('phone').value || 'No indicado',
         breed: document.getElementById('breed').value || 'No especificada',
@@ -2521,11 +2786,22 @@
     });
 
     /* ══════════════════════════════════════
-       LOADER
+       LOADER — robuste, ne reste jamais bloqué
     ══════════════════════════════════════ */
-    window.addEventListener('load', () => {
-      setTimeout(() => document.getElementById('loader').classList.add('hidden'), 1700);
+    function hideLoader() {
+      const loader = document.getElementById('loader');
+      if (loader) loader.classList.add('hidden');
+    }
+    // 1) Dès que le DOM est prêt → masqué après 1.8s max
+    document.addEventListener('DOMContentLoaded', function () {
+      setTimeout(hideLoader, 1800);
     });
+    // 2) Si tout est chargé avant → masqué après 400ms
+    window.addEventListener('load', function () {
+      setTimeout(hideLoader, 400);
+    });
+    // 3) Filet de sécurité absolu : jamais bloqué plus de 3s
+    setTimeout(hideLoader, 3000);
 
     /* ══════════════════════════════════════
        CUSTOM CURSOR (desktop only)
@@ -2594,6 +2870,7 @@
         });
       });
     });
+
   </script>
 </body>
 
